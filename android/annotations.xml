@@ -1,0 +1,8 @@
+<root>
+    <item name='android.R.id content'>
+        <annotation name='android.support.annotation.Nullable' />
+    </item>
+    <item name='android.R.layout simple_list_item_1'>
+        <annotation name='android.support.annotation.NonNull' />
+    </item>
+</root>
