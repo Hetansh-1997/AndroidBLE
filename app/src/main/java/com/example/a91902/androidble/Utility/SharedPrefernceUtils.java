@@ -3,6 +3,8 @@ package com.example.a91902.androidble.Utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.a91902.androidble.MyApp;
+
 public class SharedPrefernceUtils {
 
     private static String PREFERNCE_NAME="shopeasy";

@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="Utility.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,6 @@
         <activity android:name=".login.SignUpActivity" />
         <activity android:name=".login.ForgotPasswordActivity" />
 
-        <activity android:name=".Bluetooth.BluetoothConnection" />
         <activity android:name=".Bluetooth.BeaconConnection" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +36,11 @@
             android:name=".home.ProductActivity"
             android:label="Mobile"
             android:theme="@style/AppTheme">
-
+        </activity>
+        <activity
+            android:name=".home.DescriptionActivity"
+            android:label="Mobile"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 
