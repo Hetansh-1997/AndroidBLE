@@ -21,11 +21,11 @@ import java.util.List;
 public class ProductAdapter extends BaseAdapter {
 
     //List<ProductList> productLists;
-    Context context;
-    int image[];
-    String productName[];
-    String productPrice[];
-    LayoutInflater inflater;
+    private Context context;
+    private int image[];
+    private String productName[];
+    private String productPrice[];
+    private LayoutInflater inflater;
     public ProductAdapter(Context context,int image[],String productName[],String productPrice[]) {
         this.context = context;
         this.image=image;
@@ -56,13 +56,14 @@ public class ProductAdapter extends BaseAdapter {
             inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             gridView= inflater.inflate(R.layout.product_list_view,null);
         }
-        ImageView product_image=(ImageView) gridView.findViewById(R.id.image_view_product_image);
-        TextView product_name= (TextView) gridView.findViewById(R.id.text_view_product_name);
-        TextView product_price=(TextView) gridView.findViewById(R.id.text_view_product_price);
+        ImageView product_image= gridView.findViewById(R.id.image_view_product_image);
+        TextView product_name=  gridView.findViewById(R.id.text_view_product_name);
+        TextView product_price= gridView.findViewById(R.id.text_view_product_price);
 
         product_image.setImageResource(image[i]);
         product_name.setText(productName[i]);
-        product_price.setText("\u20B9"+" "+productPrice[i]);
+        String pro_price="\u20B9"+" "+productPrice[i];
+        product_price.setText(pro_price);
         return gridView;
     }
 

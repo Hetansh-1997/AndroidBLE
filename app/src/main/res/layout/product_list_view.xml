@@ -12,7 +12,6 @@
         android:background="@color/white_color"
         android:layout_marginTop="@dimen/padding_medium_10"
         android:layout_marginBottom="@dimen/padding_medium_10"
-        android:outlineAmbientShadowColor="#eddfe1"
         app:cardCornerRadius="10dp"
         >
         <LinearLayout
@@ -27,6 +26,7 @@
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:layout_weight="50"
+                android:contentDescription="@string/product_image"
                 />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,8 +37,7 @@
                     android:id="@+id/text_view_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Header"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:textColor="#46535e"
                     android:fontFamily="sans-serif"
                     />
@@ -50,18 +49,18 @@
                     android:padding="@dimen/padding_small_5"
                     android:textColor="#9ca3a8"
                     android:layout_marginTop="@dimen/padding_small_5"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:fontFamily="sans-serif"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_view_product_name"
-                    android:layout_toRightOf="@+id/text_view_product_price"
+                    android:layout_toEndOf="@+id/text_view_product_price"
                     android:text="@string/mrp_price"
                     android:layout_marginTop="@dimen/padding_medium_10"
-                    android:layout_marginLeft="@dimen/padding_small_5"
-                    android:textSize="15dp"
+                    android:layout_marginStart="@dimen/padding_small_5"
+                    android:textSize="15sp"
                     android:textColor="#9ca3a8"
                     android:fontFamily="sans-serif"
                     />

@@ -1,4 +1,4 @@
-package com.example.a91902.androidble.Bluetooth;
+package com.example.a91902.androidble.bluetooth;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
