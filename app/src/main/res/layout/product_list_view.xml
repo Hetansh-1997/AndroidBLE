@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,6 +12,8 @@
         android:background="@color/white_color"
         android:layout_marginTop="@dimen/padding_medium_10"
         android:layout_marginBottom="@dimen/padding_medium_10"
+        android:outlineAmbientShadowColor="#eddfe1"
+        app:cardCornerRadius="10dp"
         >
         <LinearLayout
             android:padding="@dimen/activity_horizontal_margin"
@@ -22,7 +24,7 @@
             android:weightSum="100">
             <ImageView
                 android:id="@+id/image_view_product_image"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:layout_weight="50"
                 />
@@ -36,6 +38,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Header"
+                    android:textSize="18dp"
+                    android:textColor="#46535e"
+                    android:fontFamily="sans-serif"
                     />
                 <TextView
                     android:id="@+id/text_view_product_price"
@@ -43,9 +48,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_view_product_name"
                     android:padding="@dimen/padding_small_5"
-                    android:textColor="@color/product_price"
-                    android:background="@drawable/product_price_border"
+                    android:textColor="#9ca3a8"
                     android:layout_marginTop="@dimen/padding_small_5"
+                    android:textSize="15dp"
+                    android:fontFamily="sans-serif"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -55,6 +61,9 @@
                     android:text="@string/mrp_price"
                     android:layout_marginTop="@dimen/padding_medium_10"
                     android:layout_marginLeft="@dimen/padding_small_5"
+                    android:textSize="15dp"
+                    android:textColor="#9ca3a8"
+                    android:fontFamily="sans-serif"
                     />
             </RelativeLayout>
         </LinearLayout>

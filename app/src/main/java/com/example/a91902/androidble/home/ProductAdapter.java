@@ -57,8 +57,7 @@ public class ProductAdapter extends BaseAdapter {
             gridView= inflater.inflate(R.layout.product_list_view,null);
         }
         ImageView product_image=(ImageView) gridView.findViewById(R.id.image_view_product_image);
-        TextView product_name= (TextView) gridView
-                .findViewById(R.id.text_view_product_name);
+        TextView product_name= (TextView) gridView.findViewById(R.id.text_view_product_name);
         TextView product_price=(TextView) gridView.findViewById(R.id.text_view_product_price);
 
         product_image.setImageResource(image[i]);

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescriptionActivity"
-    android:background="@color/background_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_color"
     >
 
     <TextView
@@ -43,6 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_color"
+                android:layout_marginLeft="@dimen/padding_medium_10"
+                android:layout_marginRight="@dimen/padding_medium_10"
+                app:cardCornerRadius="10dp"
+                android:outlineAmbientShadowColor="#eddfe1"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -67,6 +71,7 @@
                         android:textSize="@dimen/padding_extra_large_20"
                         android:layout_below="@+id/image_view_product_image"
                         android:textColor="@color/text_color"
+                        android:fontFamily="sans-serif"
                         />
                     <TextView
                         android:id="@+id/text_product_price"
@@ -80,6 +85,7 @@
                         android:textColor="@color/text_color"
                         android:textStyle="bold"
                         android:layout_marginLeft="@dimen/padding_medium_10"
+                        android:fontFamily="sans-serif"
                         />
                     <TextView
                         android:id="@+id/MRP_price"
@@ -89,15 +95,19 @@
                         android:layout_marginTop="8dp"
                         android:layout_below="@+id/text_product_name"
                         android:layout_toRightOf="@+id/text_product_price"
+                        android:fontFamily="sans-serif"
                         />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
+                android:id="@+id/cardview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview1"
                 android:layout_marginTop="@dimen/padding_medium_10"
+                android:layout_marginLeft="@dimen/padding_medium_10"
+                android:layout_marginRight="@dimen/padding_medium_10"
                 android:background="@color/white_color"
                 >
                 <LinearLayout
@@ -115,6 +125,7 @@
                         android:textSize="@dimen/padding_large_15"
                         android:layout_marginLeft="@dimen/padding_medium_10"
                         android:layout_marginTop="@dimen/padding_extra_large_20"
+                        android:fontFamily="sans-serif"
                         />
 
                     <TextView
@@ -128,10 +139,18 @@
                         android:textSize="@dimen/text_size_extra_large_15"
                         android:layout_below="@+id/text_product_name"
                         android:textColor="@color/text_color"
+                        android:fontFamily="sans-serif"
                         />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_below="@+id/cardview2"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                />
         </RelativeLayout>
+
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,6 +168,7 @@
             android:textColor="@color/black_color"
             android:background="@color/white_color"
             android:gravity="center"
+            android:fontFamily="sans-serif"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -160,6 +180,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:textColor="@color/white_color"
+            android:fontFamily="sans-serif"
             />
     </LinearLayout>
 </RelativeLayout>
