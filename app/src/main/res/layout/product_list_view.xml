@@ -39,7 +39,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textColor="#46535e"
-                    android:fontFamily="sans-serif"
                     />
                 <TextView
                     android:id="@+id/text_view_product_price"
@@ -50,7 +49,6 @@
                     android:textColor="#9ca3a8"
                     android:layout_marginTop="@dimen/padding_small_5"
                     android:textSize="15sp"
-                    android:fontFamily="sans-serif"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,7 +60,6 @@
                     android:layout_marginStart="@dimen/padding_small_5"
                     android:textSize="15sp"
                     android:textColor="#9ca3a8"
-                    android:fontFamily="sans-serif"
                     />
             </RelativeLayout>
         </LinearLayout>
