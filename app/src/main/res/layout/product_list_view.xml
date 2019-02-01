@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:textColor="#46535e"
+                    android:textColor="@color/header"
                     />
                 <TextView
                     android:id="@+id/text_view_product_price"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_view_product_name"
                     android:padding="@dimen/padding_small_5"
-                    android:textColor="#9ca3a8"
+                    android:textColor="@color/black_color"
                     android:layout_marginTop="@dimen/padding_small_5"
                     android:textSize="15sp"
                     />
@@ -59,7 +59,7 @@
                     android:layout_marginTop="@dimen/padding_medium_10"
                     android:layout_marginStart="@dimen/padding_small_5"
                     android:textSize="15sp"
-                    android:textColor="#9ca3a8"
+                    android:textColor="@color/description"
                     />
             </RelativeLayout>
         </LinearLayout>

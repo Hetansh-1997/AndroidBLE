@@ -11,4 +11,6 @@
     <color name="grey_color">#c7c7c7</color>
     <color name="background_color">#efefef</color>
     <color name="product_price">#257cb7</color>
+    <color name="header">#46535e</color>
+    <color name="description">#9ca3a8</color>
 </resources>

@@ -1,12 +1,18 @@
 package com.example.a91902.androidble.splash;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
+
 import com.example.a91902.androidble.R;
 import com.example.a91902.androidble.Utility.SharedPrefernceUtils;
+import com.example.a91902.androidble.home.ProductActivity;
 import com.example.a91902.androidble.login.SignInActivity;
+
+import static com.example.a91902.androidble.database.Constants.*;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,14 +26,21 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(SharedPrefernceUtils.getInstance().getString("register_user").equalsIgnoreCase("")){
-                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                String selection="`"+STATUS+"` = 1";
+                Cursor cursor=getContentResolver().query(CONTENT_USER, null, selection, null, null);
+                Toast.makeText(SplashActivity.this, ""+cursor.getCount(), Toast.LENGTH_SHORT).show();
+                if(cursor.getCount()>0){
+                    startActivity(new Intent(SplashActivity.this,ProductActivity.class));
+                    cursor.close();
+                    finish();
                 }else{
-                    //startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this,SignInActivity.class));
+                    cursor.close();
+                    finish();
                 }
-                finish();
+
             }
 
-        },5000);
+        },1000);
     }
 }

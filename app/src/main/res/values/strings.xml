@@ -38,6 +38,7 @@
     <string name="signup">Sign Up</string>
     <string name="rupee_symbol">\u20B9</string>
     <string name="buy_now">BUY NOW</string>
+
     <string name="product_image">Product Image</string>
     <string-array name="size">
         <item>Size</item>

@@ -8,17 +8,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class MyApp extends Application {
-    //private static Context context;
+    private static Context context;
     private RequestQueue requestQueue;
     private static MyApp mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        context=getApplicationContext();
         mInstance=this;
     }
-
-    public static synchronized MyApp getInstance() {
+    public static Context getContext() {
+        return context;
+    }
+        public static synchronized MyApp getInstance() {
         return mInstance;
     }
     public RequestQueue getRequestQueue() {

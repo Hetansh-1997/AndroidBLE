@@ -29,7 +29,11 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="Mobiles"
                 />
-
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_launcher"
+                />
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

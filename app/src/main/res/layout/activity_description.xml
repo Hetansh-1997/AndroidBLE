@@ -60,7 +60,7 @@
                         android:layout_marginStart="@dimen/padding_medium_10"
                         android:textSize="20sp"
                         android:layout_below="@+id/image_view_product_image"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/header"
                         />
                     <TextView
                         android:id="@+id/text_product_price"
@@ -71,7 +71,7 @@
                         android:layout_marginRight="@dimen/padding_medium_10"
                         android:textSize="20sp"
                         android:layout_below="@+id/text_product_name"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/black_color"
                         android:textStyle="bold"
                         android:layout_marginLeft="@dimen/padding_medium_10"
                         />
@@ -83,6 +83,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_below="@+id/text_product_name"
                         android:layout_toEndOf="@+id/text_product_price"
+                        android:textColor="@color/description"
                         />
                 </RelativeLayout>
 
