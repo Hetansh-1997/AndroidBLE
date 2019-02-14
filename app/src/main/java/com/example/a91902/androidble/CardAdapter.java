@@ -22,14 +22,15 @@ public class CardAdapter extends BaseAdapter {
 
     //List<ProductList> productLists;
     private Context context;
-    private int image[];
     private String productName[];
     private String productPrice[];
+    private int productImage[];
     private LayoutInflater inflater;
-    public CardAdapter(Context context,String productName[],String productPrice[]) {
+    public CardAdapter(Context context,String productName[],String productPrice[],int productImage[]) {
         this.context = context;
         this.productName=productName;
         this.productPrice=productPrice;
+        this.productImage=productImage;
     }
 
     @Override
@@ -59,10 +60,10 @@ public class CardAdapter extends BaseAdapter {
         TextView product_name=  gridView.findViewById(R.id.text_view_product_name);
         TextView product_price= gridView.findViewById(R.id.text_view_product_price);
 
-        product_image.setImageResource(image[i]);
         product_name.setText(productName[i]);
         String pro_price="\u20B9"+" "+productPrice[i];
         product_price.setText(pro_price);
+        product_image.setImageResource(productImage[i]);
         return gridView;
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,6 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
-
     //List<ProductList> productLists;
     private Context context;
     private int image[];
@@ -27,6 +27,8 @@ public class ProductAdapter extends BaseAdapter {
     private String productPrice[];
     private LayoutInflater inflater;
     private String activity_decide;
+    private ImageView product_image;
+    private TextView product_name,product_price;
     public ProductAdapter(Context context,int image[],String productName[],String productPrice[],String activity_decide) {
         this.context = context;
         this.image=image;
@@ -65,9 +67,9 @@ public class ProductAdapter extends BaseAdapter {
                 inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 gridView = inflater.inflate(R.layout.product_list_view, null);
             }
-            ImageView product_image = gridView.findViewById(R.id.image_view_product_image);
-            TextView product_name = gridView.findViewById(R.id.text_view_product_name);
-            TextView product_price = gridView.findViewById(R.id.text_view_product_price);
+             product_image = gridView.findViewById(R.id.image_view_product_image);
+             product_name = gridView.findViewById(R.id.text_view_product_name);
+             product_price = gridView.findViewById(R.id.text_view_product_price);
 
             product_image.setImageResource(image[i]);
             product_name.setText(productName[i]);
@@ -78,8 +80,8 @@ public class ProductAdapter extends BaseAdapter {
                 inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 gridView = inflater.inflate(R.layout.product_list_view, null);
             }
-            TextView product_name = gridView.findViewById(R.id.text_view_product_name);
-            TextView product_price = gridView.findViewById(R.id.text_view_product_price);
+            product_name = gridView.findViewById(R.id.text_view_product_name);
+            product_price = gridView.findViewById(R.id.text_view_product_price);
 
             product_name.setText(productName[i]);
             String pro_price = "\u20B9" + " " + productPrice[i];

@@ -45,12 +45,19 @@
                     android:paddingTop="@dimen/padding_medium_10"
                     android:paddingBottom="@dimen/padding_medium_10"
                     >
+                    <ImageView
+                        android:id="@+id/image_view_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:src="@drawable/mobile1"
+                        />
+                    <!--
                     <android.support.v4.view.ViewPager
                         android:id="@+id/image_view_product_image"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/product_image_height_250">
 
-                    </android.support.v4.view.ViewPager>
+                    </android.support.v4.view.ViewPager>-->
                     <TextView
                         android:id="@+id/text_product_name"
                         android:layout_width="wrap_content"
@@ -59,7 +66,7 @@
                         android:layout_marginTop="@dimen/padding_small_5"
                         android:layout_marginStart="@dimen/padding_medium_10"
                         android:textSize="20sp"
-                        android:layout_below="@+id/image_view_product_image"
+                        android:layout_below="@+id/image_view_product"
                         android:textColor="@color/header"
                         />
                     <TextView

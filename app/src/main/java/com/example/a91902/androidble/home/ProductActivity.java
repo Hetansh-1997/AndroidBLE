@@ -1,10 +1,16 @@
 package com.example.a91902.androidble.home;
 
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,8 +21,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.a91902.androidble.MyApp;
 import com.example.a91902.androidble.R;
+import com.example.a91902.androidble.login.SignInActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +47,7 @@ import static com.example.a91902.androidble.database.Constants.STATUS;
 public class ProductActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     GridView gridView;
+    RelativeLayout relativeLayout;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     String string[] = {"Mi A2 (Gold, 4GB RAM, 64GB Storage)", "Mi A3 (Blue, 4GB RAM, 64GB Storage)",
@@ -51,6 +59,7 @@ public class ProductActivity extends AppCompatActivity
     View getView;
     String phone,id,activity;
     String firstname,lastname;
+    AlertDialog.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +68,6 @@ public class ProductActivity extends AppCompatActivity
         phone=intent.getStringExtra("phone");
         id=intent.getStringExtra("id");
         activity=intent.getStringExtra("activity");
-        Toast.makeText(this, ""+id+" phone = "+phone+" activity = "+activity, Toast.LENGTH_SHORT).show();
         final String url = "http://192.168.1.103:3000/users?phone=07718924436";
         progressDialog=new ProgressDialog(ProductActivity.this);
         progressDialog.setMessage("Validating");
@@ -88,10 +96,9 @@ public class ProductActivity extends AppCompatActivity
                         json[0]=response.toString();
                         try {
                             JSONObject jsonObject=new JSONObject(json[0]);
-                            name=(TextView) getView.findViewById(R.id.namegiven);
-                            Toast.makeText(ProductActivity.this, ""+jsonObject.getString("firstName"), Toast.LENGTH_SHORT).show();
+                            name=getView.findViewById(R.id.namegiven);
                             name.setText(jsonObject.getString("firstName")+" "+jsonObject.getString("lastName"));
-                            if(activity=="Sign") {
+                            if(activity.equals("Sign")) {
                                 String selection = "" + PHONE_NUMBER + " = 07718924436";
                                 ContentValues contentValues = new ContentValues();
                                 contentValues.put(NAME, jsonObject.getString("firstname") + " " + jsonObject.getString("lastname"));
@@ -100,14 +107,12 @@ public class ProductActivity extends AppCompatActivity
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //Toast.makeText(ProductActivity.this, ""+response.toString(), Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(ProductActivity.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }){
             @Override
@@ -123,11 +128,13 @@ public class ProductActivity extends AppCompatActivity
         ProductAdapter productAdapter = new ProductAdapter(this, photo, string, productPrice,"Product");
         gridView.setAdapter(productAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intentNew=new Intent(ProductActivity.this, DescriptionActivity.class);
                 intentNew.putExtra("Name",string[i]);
                 intentNew.putExtra("Price",productPrice[i]);
+                intentNew.putExtra("image",photo[i]);
                 startActivity(intentNew);
             }
         });
@@ -139,15 +146,33 @@ public class ProductActivity extends AppCompatActivity
             }
         });
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            builder=new AlertDialog.Builder(ProductActivity.this);
+            builder.setMessage("Are you sure you want to exit")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            progressDialog.onBackPressed();
+                            finish();
+                        }
+                    })
+            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    progressDialog.onBackPressed();
+                }
+            });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.setTitle("Exit");
+            alertDialog.show();
         }
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -174,4 +199,5 @@ public class ProductActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
