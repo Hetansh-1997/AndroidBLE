@@ -5,12 +5,11 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.a91902.androidble.MyApp;
 import com.example.a91902.androidble.R;
-import com.example.a91902.androidble.Utility.SharedPrefernceUtils;
 import com.example.a91902.androidble.home.ProductActivity;
 
 import org.json.JSONException;
@@ -30,6 +28,7 @@ public class SignInActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     TextView textViewPhone,textViewPassword;
     AlertDialog.Builder builder;
+    String number,id,expiry;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         textViewPhone= findViewById(R.id.edit_text_phone_number);
         textViewPassword= findViewById(R.id.edit_text_password);
         final String[] json = new String[1];
-        final String url = "http://192.168.43.110:3000/tokens";
+        final String url = "http://192.168.1.103:3000/tokens";
         findViewById(R.id.text_view_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +47,7 @@ public class SignInActivity extends AppCompatActivity {
                 }else if(password.isEmpty()){
                     dialogbox("Enter Phone Password");
                 }else{
-                    /*progressDialog=new ProgressDialog(SignInActivity.this);
+                    progressDialog=new ProgressDialog(SignInActivity.this);
                     progressDialog.setMessage("Validating");
                     progressDialog.show();
                     JSONObject postparams = new JSONObject();
@@ -67,18 +66,23 @@ public class SignInActivity extends AppCompatActivity {
                                     json[0] =response.toString();
                                         try {
                                             JSONObject jsonObject=new JSONObject(json[0]);
-                                            String number=jsonObject.getString("phone");
-                                            String id=jsonObject.getString("id");
-                                            String expiry=jsonObject.getString("expiry");
+                                            number=jsonObject.getString("phone");
+                                            id=jsonObject.getString("id");
+                                            expiry=jsonObject.getString("expiry");
+                                            ContentValues values=new ContentValues();
+                                            values.put(NAME,"");
+                                            values.put(PHONE_NUMBER,number);
+                                            values.put(STATUS,"1");
+                                            values.put(ID,id);
+                                            values.put(EXPIRY,expiry);
+                                            getContentResolver().insert(CONTENT_USER,values);
                                             Intent intent=new Intent(SignInActivity.this,ProductActivity.class);
-                                            intent.putExtra("phone",number);
                                             intent.putExtra("id",id);
-                                            intent.putExtra("expiry",expiry);
+                                            intent.putExtra("phone",number);
+                                            intent.putExtra("activity","Sign");
                                             startActivity(intent);
-                                            progressDialog.dismiss();
-                                            SharedPrefernceUtils sharedPrefernceUtils=SharedPrefernceUtils.getInstance();
-                                            sharedPrefernceUtils.saveString("Success","Sucessful");
                                             finish();
+                                            progressDialog.dismiss();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -90,16 +94,7 @@ public class SignInActivity extends AppCompatActivity {
                                     dialogbox("Please Turn on the internet");
                                 }
                             });
-                    MyApp.getInstance().addToRequestQueue(jsonObjReq, "getRequest");*/
-                    ContentValues values=new ContentValues();
-                    values.put(NAME,"Hetansh");
-                    values.put(PHONE_NUMBER,textViewPhone.getText().toString());
-                    values.put(STATUS,"1");
-                    values.put(ID,"1");
-                    values.put(EXPIRY,"bcnbdhb");
-                    getContentResolver().insert(CONTENT_USER,values);
-                    startActivity(new Intent(SignInActivity.this,ProductActivity.class));
-                    finish();
+                    MyApp.getInstance().addToRequestQueue(jsonObjReq, "getRequest");
                 }
             }
         });

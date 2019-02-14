@@ -26,11 +26,19 @@ public class ProductAdapter extends BaseAdapter {
     private String productName[];
     private String productPrice[];
     private LayoutInflater inflater;
-    public ProductAdapter(Context context,int image[],String productName[],String productPrice[]) {
+    private String activity_decide;
+    public ProductAdapter(Context context,int image[],String productName[],String productPrice[],String activity_decide) {
         this.context = context;
         this.image=image;
         this.productName=productName;
         this.productPrice=productPrice;
+        this.activity_decide=activity_decide;
+    }
+    public ProductAdapter(Context context,String productName[],String productPrice[],String activity_decide) {
+        this.context = context;
+        this.productName=productName;
+        this.productPrice=productPrice;
+        this.activity_decide=activity_decide;
     }
 
     @Override
@@ -52,18 +60,31 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         View gridView=view;
-        if(view==null){
-            inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            gridView= inflater.inflate(R.layout.product_list_view,null);
-        }
-        ImageView product_image= gridView.findViewById(R.id.image_view_product_image);
-        TextView product_name=  gridView.findViewById(R.id.text_view_product_name);
-        TextView product_price= gridView.findViewById(R.id.text_view_product_price);
+        if(activity_decide.equals("Product")) {
+            if (view == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                gridView = inflater.inflate(R.layout.product_list_view, null);
+            }
+            ImageView product_image = gridView.findViewById(R.id.image_view_product_image);
+            TextView product_name = gridView.findViewById(R.id.text_view_product_name);
+            TextView product_price = gridView.findViewById(R.id.text_view_product_price);
 
-        product_image.setImageResource(image[i]);
-        product_name.setText(productName[i]);
-        String pro_price="\u20B9"+" "+productPrice[i];
-        product_price.setText(pro_price);
+            product_image.setImageResource(image[i]);
+            product_name.setText(productName[i]);
+            String pro_price = "\u20B9" + " " + productPrice[i];
+            product_price.setText(pro_price);
+        }else{
+            if (view == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                gridView = inflater.inflate(R.layout.product_list_view, null);
+            }
+            TextView product_name = gridView.findViewById(R.id.text_view_product_name);
+            TextView product_price = gridView.findViewById(R.id.text_view_product_price);
+
+            product_name.setText(productName[i]);
+            String pro_price = "\u20B9" + " " + productPrice[i];
+            product_price.setText(pro_price);
+        }
         return gridView;
     }
 

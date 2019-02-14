@@ -10,11 +10,11 @@
     <application
         android:name=".MyApp"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:fullBackupContent="true"
         android:theme="@style/AppTheme">
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
@@ -23,22 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-            <activity android:name=".login.SignInActivity" >
+        <activity android:name=".login.SignInActivity" />
+        <activity android:name=".login.SignUpActivity" />
+        <activity android:name=".login.ForgotPasswordActivity" />
+        <activity android:name=".bluetooth.BeaconConnection" />
+        <activity android:name=".home.ProductActivity" />
+        <activity android:name=".home.DescriptionActivity" />
 
-            </activity>
-            <activity android:name=".login.SignUpActivity" />
-            <activity android:name=".login.ForgotPasswordActivity" />
-            <activity android:name=".bluetooth.BeaconConnection" />
-            <activity
-                android:name=".home.ProductActivity">
-            </activity>
-            <activity
-                android:name=".home.DescriptionActivity"
-                />
-            <provider
-                android:authorities="com.example.a91902.androidble"
-                android:name=".database.userContentProvider"
-                />
+        <provider
+            android:name=".database.userContentProvider"
+            android:authorities="com.example.a91902.androidble" />
+
+        <activity android:name=".home.CartActivity" />
     </application>
 
 </manifest>

@@ -1,11 +1,10 @@
 package com.example.a91902.androidble.home;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.JsonToken;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,8 +25,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.a91902.androidble.MyApp;
 import com.example.a91902.androidble.R;
-import com.example.a91902.androidble.Utility.SharedPrefernceUtils;
-import com.example.a91902.androidble.login.SignInActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +33,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.a91902.androidble.database.Constants.CONTENT_USER;
+import static com.example.a91902.androidble.database.Constants.NAME;
+import static com.example.a91902.androidble.database.Constants.PHONE_NUMBER;
 import static com.example.a91902.androidble.database.Constants.STATUS;
 
 public class ProductActivity extends AppCompatActivity
@@ -50,16 +49,18 @@ public class ProductActivity extends AppCompatActivity
     ProgressDialog progressDialog;
     TextView name;
     View getView;
+    String phone,id,activity;
     String firstname,lastname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         Intent intent=getIntent();
-        final String phone=intent.getStringExtra("phone");
-        final String id=intent.getStringExtra("id");
-        final String expiry=intent.getStringExtra("expiry");
-        final String url = "http://192.168.43.110:3000/users?phone=07718924436";
+        phone=intent.getStringExtra("phone");
+        id=intent.getStringExtra("id");
+        activity=intent.getStringExtra("activity");
+        Toast.makeText(this, ""+id+" phone = "+phone+" activity = "+activity, Toast.LENGTH_SHORT).show();
+        final String url = "http://192.168.1.103:3000/users?phone=07718924436";
         progressDialog=new ProgressDialog(ProductActivity.this);
         progressDialog.setMessage("Validating");
         progressDialog.show();
@@ -72,16 +73,12 @@ public class ProductActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         getView=navigationView.getHeaderView(0);
-        String selection="`"+STATUS+"` = 1";
-        Toast.makeText(this, "ouside "+firstname, Toast.LENGTH_SHORT).show();
-        Cursor cursor=getContentResolver().query(CONTENT_USER,null,selection,null,null,null);
-        Toast.makeText(this, ""+cursor.getCount(), Toast.LENGTH_SHORT).show();
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*final String[] json = new String[1];
+        final String[] json = new String[1];
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener() {
@@ -92,7 +89,14 @@ public class ProductActivity extends AppCompatActivity
                         try {
                             JSONObject jsonObject=new JSONObject(json[0]);
                             name=(TextView) getView.findViewById(R.id.namegiven);
+                            Toast.makeText(ProductActivity.this, ""+jsonObject.getString("firstName"), Toast.LENGTH_SHORT).show();
                             name.setText(jsonObject.getString("firstName")+" "+jsonObject.getString("lastName"));
+                            if(activity=="Sign") {
+                                String selection = "" + PHONE_NUMBER + " = 07718924436";
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put(NAME, jsonObject.getString("firstname") + " " + jsonObject.getString("lastname"));
+                                getContentResolver().update(CONTENT_USER, contentValues, selection, null);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -114,16 +118,24 @@ public class ProductActivity extends AppCompatActivity
                 return headers;
             }
         };
-        MyApp.getInstance().addToRequestQueue(jsonObjReq, "getRequest");*/
-        Toast.makeText(this, ""+SharedPrefernceUtils.getInstance().getString("Status"), Toast.LENGTH_SHORT).show();
+        MyApp.getInstance().addToRequestQueue(jsonObjReq, "getRequest");
         gridView = findViewById(R.id.grid_view);
-        ProductAdapter productAdapter = new ProductAdapter(this, photo, string, productPrice);
+        ProductAdapter productAdapter = new ProductAdapter(this, photo, string, productPrice,"Product");
         gridView.setAdapter(productAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(ProductActivity.this, string[i], Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ProductActivity.this, DescriptionActivity.class));
+                Intent intentNew=new Intent(ProductActivity.this, DescriptionActivity.class);
+                intentNew.putExtra("Name",string[i]);
+                intentNew.putExtra("Price",productPrice[i]);
+                startActivity(intentNew);
+            }
+        });
+        findViewById(R.id.cart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProductActivity.this,CartActivity.class);
+                startActivity(intent);
             }
         });
     }

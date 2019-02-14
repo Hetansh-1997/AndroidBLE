@@ -28,9 +28,15 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 String selection="`"+STATUS+"` = 1";
                 Cursor cursor=getContentResolver().query(CONTENT_USER, null, selection, null, null);
-                Toast.makeText(SplashActivity.this, ""+cursor.getCount(), Toast.LENGTH_SHORT).show();
                 if(cursor.getCount()>0){
-                    startActivity(new Intent(SplashActivity.this,ProductActivity.class));
+                    cursor.moveToFirst();
+                    String number=cursor.getString(cursor.getColumnIndex(PHONE_NUMBER));
+                    String id=cursor.getString(cursor.getColumnIndex(ID));
+                    Intent intent=new Intent(SplashActivity.this,ProductActivity.class);
+                    intent.putExtra("phone",number);
+                    intent.putExtra("id",id);
+                    intent.putExtra("activity","Splash");
+                    startActivity(intent);
                     cursor.close();
                     finish();
                 }else{
