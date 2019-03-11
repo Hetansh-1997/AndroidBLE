@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.a91902.androidble.R;
 import com.example.a91902.androidble.Utility.SharedPrefernceUtils;
+import com.example.a91902.androidble.bluetooth.BeaconConnection;
 import com.example.a91902.androidble.home.ProductActivity;
 import com.example.a91902.androidble.login.SignInActivity;
 
@@ -26,13 +27,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                String selection="`"+STATUS+"` = 1";
+                String selection=""+STATUS+" = 1";
                 Cursor cursor=getContentResolver().query(CONTENT_USER, null, selection, null, null);
+                Toast.makeText(SplashActivity.this, ""+cursor.getCount(), Toast.LENGTH_SHORT).show();
                 if(cursor.getCount()>0){
                     cursor.moveToFirst();
                     String number=cursor.getString(cursor.getColumnIndex(PHONE_NUMBER));
                     String id=cursor.getString(cursor.getColumnIndex(ID));
-                    Intent intent=new Intent(SplashActivity.this,ProductActivity.class);
+                    Intent intent=new Intent(SplashActivity.this,BeaconConnection.class);
                     intent.putExtra("phone",number);
                     intent.putExtra("id",id);
                     intent.putExtra("activity","Splash");

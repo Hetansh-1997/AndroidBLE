@@ -1,6 +1,5 @@
 package com.example.a91902.androidble.home;
 
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -10,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,10 +33,8 @@ import com.example.a91902.androidble.login.SignInActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.example.a91902.androidble.database.Constants.CONTENT_USER;
 import static com.example.a91902.androidble.database.Constants.NAME;
 import static com.example.a91902.androidble.database.Constants.PHONE_NUMBER;
@@ -53,7 +49,7 @@ public class ProductActivity extends AppCompatActivity
     String string[] = {"Mi A2 (Gold, 4GB RAM, 64GB Storage)", "Mi A3 (Blue, 4GB RAM, 64GB Storage)",
             "Samsung Galaxy A8+ (Black, 6GB RAM, 64GB Storage)", "Redmi 6 Pro (Black, 4GB RAM, 64GB Storage)","Mi A2 (Gold, 4GB RAM, 64GB Storage)"};
     int photo[] = {R.drawable.mobile1, R.drawable.mobile2, R.drawable.mobile3, R.drawable.mobile4,R.drawable.mobile1};
-    String productPrice[] = {"16,181", "30,0000", "12,999", "14,999","13,150"};
+    String productPrice[] = {"16,181", "30,000", "12,999", "14,999","13,150"};
     ProgressDialog progressDialog;
     TextView name;
     View getView;
@@ -68,7 +64,7 @@ public class ProductActivity extends AppCompatActivity
         phone=intent.getStringExtra("phone");
         id=intent.getStringExtra("id");
         activity=intent.getStringExtra("activity");
-        final String url = "http://192.168.1.103:3000/users?phone=07718924436";
+        final String url = "http://10.10.8.91:3000/users?phone=07718924436";
         progressDialog=new ProgressDialog(ProductActivity.this);
         progressDialog.setMessage("Validating");
         progressDialog.show();
@@ -125,7 +121,7 @@ public class ProductActivity extends AppCompatActivity
         };
         MyApp.getInstance().addToRequestQueue(jsonObjReq, "getRequest");
         gridView = findViewById(R.id.grid_view);
-        ProductAdapter productAdapter = new ProductAdapter(this, photo, string, productPrice,"Product");
+        ProductAdapter productAdapter = new ProductAdapter(this, photo, string, productPrice);
         gridView.setAdapter(productAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -191,8 +187,12 @@ public class ProductActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            String selection = "" + STATUS + " = 1";
+            ContentValues values=new ContentValues();
+            int num=getContentResolver().delete(CONTENT_USER,selection,null);
+            startActivity(new Intent(ProductActivity.this,SignInActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

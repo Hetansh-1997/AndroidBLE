@@ -1,5 +1,6 @@
 package com.example.a91902.androidble.bluetooth;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -7,6 +8,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.a91902.androidble.R;
 import com.example.a91902.androidble.home.ProductActivity;
+import com.example.a91902.androidble.login.SignInActivity;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -30,13 +33,22 @@ public class BeaconConnection extends Activity implements BeaconConsumer {
     private BluetoothAdapter mBluetoothAdapter;
     private static final int REQUEST_ENABLE_BT = 1;
     private ProgressDialog progressDialog;
+    String phone,id,activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_connection);
+        Intent intent=getIntent();
+        phone=intent.getStringExtra("phone");
+        id=intent.getStringExtra("id");
+        activity=intent.getStringExtra("activity");
+
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
             finish();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Connecting");
@@ -64,14 +76,20 @@ public class BeaconConnection extends Activity implements BeaconConsumer {
     }
     @Override
     public void onBeaconServiceConnect() {
+        //beaconManager.removeAllRangeNotifiers();
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                Toast.makeText(BeaconConnection.this, ""+beacons.size(), Toast.LENGTH_SHORT).show();
                 if (beacons.size() > 0) {
                     Log.i(TAG, "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
-//                    Toast.makeText(BeaconConnection.this, "Name = "+beacons.iterator().next().getBluetoothName()+" Distance="+beacons.iterator().next().getDistance()+" Address="+beacons.iterator().next().getBluetoothAddress(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    startActivity(new Intent(BeaconConnection.this, ProductActivity.class));
+                   //Toast.makeText(BeaconConnection.this, "Name = "+beacons.iterator().next().getBluetoothName()+" Distance="+beacons.iterator().next().getDistance()+" Address="+beacons.iterator().next().getBluetoothAddress()+" UUID= "+beacons.iterator().next().toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(BeaconConnection.this,ProductActivity.class);
+                    intent.putExtra("id",id);
+                    intent.putExtra("phone",phone);
+                    intent.putExtra("activity","Sign");
+                    startActivity(intent);
                     finish();
                     //getNotification();
                 }

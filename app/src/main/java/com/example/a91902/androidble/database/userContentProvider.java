@@ -64,6 +64,7 @@ public class userContentProvider extends ContentProvider {
         int row= 0;
         if(code == CODE_USER){
             row = database.update(TABLE_USER,values,selection,selectionArgs);
+            Toast.makeText(getContext(), ""+row, Toast.LENGTH_SHORT).show();
         }else if(code == CODE_CART){
             row = database.update(TABLE_CART,values,selection,selectionArgs);
         }
